@@ -5,7 +5,7 @@ use warnings;
 use Data::Dumper;
 use JSON;
 use Time::HiRes qw(gettimeofday);       
-#use WWW::Curl;
+
 
 
 sub get_clients {
@@ -54,9 +54,12 @@ my %clients = ();
 while(1) {
 	get_clients(\%clients);
 	# %clients should be written in JSON format in /www/clients.json on the APs
-	my $json = encode_json \%clients;
-		print "$json\n";
-	# my curl -d "@json.json" -X POST http://localhost:3000/json
+	#open  my $json, '>',"/www/clients.json";
+			open  my $json, '>',"/home/boyan/Desktop/output.json";
+				print $json  encode_json \%clients;
+				close $json; 
+
+
 
 
 	while (my ($key, $val) =  each(%clients)) {
